@@ -1,36 +1,101 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 画面共有システム
 
-## Getting Started
+教室での授業やオンライン講座に最適な画面共有アプリケーション
 
-First, run the development server:
+## 🚀 機能
+
+- **講師用ページ** (`/teacher`): デスクトップ画面の共有とリアルタイム配信
+- **学生用ページ** (`/student`): 講師の画面をリアルタイムで視聴
+- **アクセスコード認証**: 6桁の数字コードによる学生の認証システム
+- **自動再接続**: 接続が切れても自動的に再接続
+- **フルスクリーン対応**: 学生側でフルスクリーン表示が可能
+- **接続状況監視**: リアルタイムでの学生接続数表示
+
+## 🛠 技術スタック
+
+- **フレームワーク**: Next.js 15 (App Router)
+- **言語**: TypeScript
+- **スタイリング**: Tailwind CSS v4
+- **アイコン**: React Icons
+- **通信**: Server-Sent Events (SSE)
+
+## 📋 システム要件
+
+### 講師用
+- Chrome、Firefox、Edge（最新版）
+- 画面キャプチャ権限が必要
+- インターネット接続
+
+### 学生用
+- 任意のモダンブラウザ
+- JavaScript有効
+- インターネット接続
+
+## 🚀 デプロイ
+
+### Vercelでのデプロイ
+
+1. GitHubリポジトリにプッシュ
+2. Vercelで新しいプロジェクトを作成
+3. GitHubリポジトリを選択
+4. 自動デプロイが開始されます
+
+### 重要な注意点
+
+#### Vercel環境での制限
+- **グローバル変数**: Vercelのサーバーレス環境では、関数間でのグローバル変数共有に制限があります
+- **接続制限**: 同時接続数には制限があります（Free: 100GB-hrs/月）
+- **タイムアウト**: Server-Sent Eventsは30秒でタイムアウトする可能性があります
+
+#### 本格運用時の推奨事項
+大規模な運用（50名以上）の場合は、以下を検討してください：
+
+1. **外部ストレージの利用**
+   - Redis や Upstash を使用してクライアント管理と画像キャッシュ
+   - 複数のサーバーレス関数間でのデータ共有
+
+2. **CDNの活用**
+   - 画像配信のためのCDN（Vercel Edge Network）の活用
+
+3. **データベースの利用**
+   - 接続状況の永続化
+   - セッション管理の改善
+
+## 📝 使用方法
+
+### 講師側
+1. `/teacher` ページにアクセス
+2. 「コード生成」ボタンをクリックして6桁のアクセスコードを生成
+3. 「画面共有を開始」ボタンをクリック
+4. 共有する画面（デスクトップ全体、アプリケーション、ブラウザタブ）を選択
+5. 学生にアクセスコードと `/student` ページのURLを共有
+
+### 学生側
+1. `/student` ページにアクセス
+2. 講師から提供された6桁のアクセスコードを入力
+3. 「接続する」ボタンをクリック
+4. 認証成功後、自動的に講師の画面が表示開始
+5. 必要に応じてフルスクリーンボタンで全画面表示
+
+## 🔧 開発
 
 ```bash
+# 依存関係のインストール
+npm install
+
+# 開発サーバーの起動
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# ビルド
+npm run build
+
+# 本番サーバーの起動
+npm start
+
+# ESLintチェック
+npm run lint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📄 ライセンス
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+このプロジェクトは教育目的で作成されています。
