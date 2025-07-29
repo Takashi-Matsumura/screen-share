@@ -328,13 +328,17 @@ export default function StudentPage() {
             ? 'h-[calc(100vh-140px)]' 
             : 'h-[calc(100vh-80px)]'
       }`}>
-        <div className="w-full h-full flex items-center justify-center p-4">
+        <div className={`w-full h-full flex items-center justify-center ${
+          isFullscreen ? 'p-0' : 'p-4'
+        }`}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             ref={imageRef}
             alt="講師の画面"
-            className={`max-w-full max-h-full object-contain rounded-lg shadow-lg ${
-              isFullscreen ? 'rounded-none shadow-none' : ''
+            className={`${
+              isFullscreen 
+                ? 'w-full h-full object-contain' 
+                : 'max-w-full max-h-full object-contain rounded-lg shadow-lg'
             }`}
             style={{ display: imageRef.current?.src ? 'block' : 'none' }}
           />
